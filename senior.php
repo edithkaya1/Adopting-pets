@@ -15,7 +15,7 @@ if (isset($_SESSION["user"])) {
     $row1 = mysqli_fetch_assoc($result);
     // print_r($row1);
 }
-$sql = "SELECT * FROM animals WHERE age > 8";
+$sql = "SELECT * FROM animals WHERE age > 8 and status = 'AVAILABLE';";
 $result = mysqli_query($connect, $sql);
 $cards = "";
 if (mysqli_num_rows($result) > 0) {

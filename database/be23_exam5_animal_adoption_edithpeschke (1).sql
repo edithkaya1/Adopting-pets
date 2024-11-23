@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2024 at 09:07 PM
+-- Generation Time: Nov 24, 2024 at 12:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,7 @@ CREATE TABLE `animals` (
 --
 
 INSERT INTO `animals` (`id`, `name`, `breed`, `gender`, `location`, `description`, `size`, `age`, `vaccine`, `picture`, `status`) VALUES
-(1, 'Poppy', 'Poodle', 'MALE', 'Vienna', 'Nice little white female poodle waiting for you', 'SMALL', 6, 'YES', '6740922e0493f.png', 'AVAILABLE'),
+(1, 'Poppy', 'Poodle', 'MALE', 'Vienna', 'Sometimes pets outlive their owners. Unfortunately, Poppy was one of them who had to cope with the death of her owner. After no one was able to look after her, she was handed in to us and is now looking for a nice new home. ', 'SMALL', 6, 'YES', '6740922e0493f.png', 'AVAILABLE'),
 (2, 'Bobo', 'Shiba Inu', 'MALE', 'Wiener Neustadt', 'Only for experienced dog owners. There are no problems with sufficient exercise. Very affectionate.', 'SMALL', 3, 'NO', '674096b965878.png', 'ADOPTED'),
 (3, 'Clara', 'Horse', 'MALE', 'Breitenfurt', 'Old, very cozy mare who needs a good place for her last days. Cuddly beginner mare.', 'LARGE', 15, 'YES', '674097864fc2c.png', 'AVAILABLE'),
 (5, 'Fleur', 'Donkey', 'FEMALE', 'Eisenstadt', 'Old lady waiting for your support', 'LARGE', 12, 'YES', '6740d664c4b82.png', 'AVAILABLE'),
@@ -58,7 +58,7 @@ INSERT INTO `animals` (`id`, `name`, `breed`, `gender`, `location`, `description
 (11, 'Viki', 'Snake', 'FEMALE', 'Purbach', 'Viki was found on a forest path and taken to a veterinary clinic for initial treatment. She was then taken to an animal shelter and is now looking for a good home. Viki currently lives alone and can be given to interested parties with previous experience.', 'SMALL', 15, 'YES', '6741af075751a.png', 'AVAILABLE'),
 (12, 'Edda', 'Labrador', 'MALE', 'Vienna', 'Edda comes from an unplanned litter. Edda has not yet experienced much from a normal dogs life.', 'SMALL', 3, 'YES', '6741b2c604455.png', 'ADOPTED'),
 (13, 'Lisa and Lola', 'Budgerigar', 'FEMALE', 'Purkersdorf', 'Lisa and Lola lived for a long time with an old woman who can no longer look after them. After a long illness, she unfortunately had to bring them to the shelter. They are very uncomplicated and we would only like to place them together.', 'SMALL', 10, 'NO', '6741b70ff095b.png', 'AVAILABLE'),
-(14, 'Chickens', 'Chicken', 'MALE', 'Breitenfurt', 'By giving up a farm, a group of 30 chickens becomes available for allocation. ', 'SMALL', 3, 'YES', '6741b7b23ab4a.png', 'ADOPTED'),
+(14, 'Greteln', 'Chicken', 'MALE', 'Breitenfurt', 'By giving up a farm, a group of 30 chickens becomes available for allocation. ', 'SMALL', 3, 'YES', '6741b7b23ab4a.png', 'ADOPTED'),
 (15, 'Filou', 'German Mastiff', 'MALE', 'Vienna', 'Filou was almost skin and bones when he was taken away from his owner by the authorities. For health reasons, he was no longer able to look after his male dog properly and no one else took care of him either. Since he has been with us, Filou has put on we', 'LARGE', 12, 'YES', '6741b8f0e466a.png', 'AVAILABLE');
 
 -- --------------------------------------------------------
