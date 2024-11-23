@@ -26,7 +26,7 @@ if (mysqli_num_rows($result) > 0) {
         $buttonDisablen = "";
         if (($row["status"]) == 'ADOPTED') {
             $buttonDisablen = "disabled";
-            $statusError = "Animal not available, please be so kind an select another one!";
+            $statusError = "Pet already adopted. Thank you very much!";
         }
         $cards .= "<div>
         <div class='card mx-auto my-3'>
@@ -42,8 +42,8 @@ if (mysqli_num_rows($result) > 0) {
               <p class='card-text1 fw-bold text-center'>Location: {$row['location']}</p>
               <p class='card-text2 fw-bold text-center'>Age: {$row['age']}</p>
               <div class='text-center'>
-                <a href='details.php?id=$row[id]' class='btn btn-lg btn-secondary mx-4 my-3'>Details</a>
-                <a href='home.php' class='btn btn-lg btn-dark mx-4 my-3'>Home</a>
+                <a href='details.php?id=$row[id]' class='{$buttonDisablen} btn btn-lg btn-secondary m-4 my-3'>Details</a>
+                <a href='adopting.php?id=$row[id]' class='{$buttonDisablen} btn btn-warning btn-lg text-center m-4 my-3'>Take me home</a> 
               </div>
            </div>
         </div>
@@ -78,20 +78,8 @@ ob_end_flush();
             font-weight: 400;
             font-style: normal;
             color: #640007;
-            text-shadow: 5px 5px 15px whitesmoke;
+            text-shadow: 6px 6px 0 gray;
             animation: tada;
-            animation-duration: 5s;
-            --animate-delay: 0.9s;
-        }
-
-        .header2 {
-            font-size: 5rem;
-            font-family: "Indie Flower", serif;
-            font-weight: 400;
-            font-style: normal;
-            color: #c70054;
-            text-shadow: 5px 5px 15px whitesmoke;
-            animation: flash;
             animation-duration: 5s;
             --animate-delay: 0.9s;
         }
@@ -129,7 +117,7 @@ ob_end_flush();
 
         .card-image-top {
             width: 100%;
-            height: 300px;
+            height: 350px;
         }
 
         .card-title {
@@ -182,6 +170,19 @@ ob_end_flush();
             margin: 0;
         }
 
+        .nav-link {
+            font-size: 1.5rem;
+            font-family: "Carlito", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .nav-link:hover {
+            background-color: #b3c6ff;
+            border-radius: 15%;
+            transform: scale(1.1);
+        }
+
         #neonShadow {
             height: 30px;
             width: 100px;
@@ -222,6 +223,83 @@ ob_end_flush();
                 box-shadow: 5px 5px 20px rgb(93, 52, 168), -5px -5px 20px rgb(93, 52, 168)
             }
         }
+
+        /* Mobile phone */
+        @media screen and (max-width: 480px) {
+            .header1 {
+                font-size: 2.3rem;
+            }
+
+            .card-header {
+                font-size: 2.2rem;
+            }
+
+            .card-title {
+                font-size: 1.8rem;
+            }
+
+            .card-text {
+                font-size: 1.2rem;
+            }
+
+            .card-text1 {
+                font-size: 1.2rem;
+            }
+
+            .card-text2 {
+                font-size: 1.2rem;
+            }
+
+            .error-text {
+                font-size: 1rem;
+            }
+
+            .nav-link:hover {
+                border-radius: 25%;
+                width: 10rem;
+                height: auto;
+                transform: scale(1.0);
+                text-align: center;
+            }
+
+            .footer h2,
+            h5 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablet */
+        @media screen and (max-width: 1200px) and (min-width: 481px) {
+            .header1 {
+                font-size: 4rem;
+            }
+
+            .nav-link:hover {
+                border-radius: 25%;
+                width: 10rem;
+                height: auto;
+                transform: scale(1.0);
+                text-align: center;
+            }
+
+            .card-header {
+                font-size: 2.8rem;
+            }
+
+            .card-title {
+                font-size: 2rem;
+            }
+
+
+            .footer h2,
+            h5 {
+                font-size: 1.2rem;
+            }
+
+            .footer-links {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 
@@ -247,7 +325,7 @@ ob_end_flush();
     </nav>
 
     <div class="container-fluid bg-image">
-        <h1 class="header2 text-center fw-bold">List of available senior pets</h1>
+        <h1 class="header1 text-center fw-bold">List of available senior pets</h1>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1">
             <?= $cards ?>
         </div>
@@ -258,18 +336,18 @@ ob_end_flush();
     <footer class="footer p-2 bg-dark-subtle text-secondary-emphasis">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h2><i class="fa-solid fa-paw"></i></i>Animal home Breitenfurt</h2>
+                <div class="col-md-5 col-sm-2">
+                    <h2><i class="fa-solid fa-paw"></i></i>Pet adoption Breitenfurt</h2>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5 col-sm-2">
                     <h5>Contact us</h5>
                     <ul class="list-unstyled">
-                        <li>Email: animal.home.Breitenfurt@gmail.com</li>
+                        <li>Email: petadoption@gmail.com</li>
                         <li>Phone: +43 616/1240356</li>
                         <li>Address: Hauptstrasse 777, 2384 Breitenfurt, Austria</li>
                     </ul>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-5">
                     <h5>Follow Us</h5>
                     <ul class="list-inline footer-links">
                         <li class="list-inline-item">
@@ -297,8 +375,8 @@ ob_end_flush();
             </div>
             <hr />
             <div id="foot" class="row">
-                <div class="col-md-4">
-                    <p>&copy; Animal home Breitenfurt 2024</p>
+                <div class="col-md-5">
+                    <p>&copy; Pet adoption Breitenfurt 2024</p>
                 </div>
                 <div class="col-md-6">
                     <p>All rights reserved</p>

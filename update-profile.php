@@ -1,19 +1,16 @@
 <?php
 ob_start();
 session_start();
-if (!isset($_SESSION['user']) && !isset($_SESSION['adm'])) {
+if (!isset($_SESSION['adm'])) {
     header("Location: login.php");
     exit;
 }
 require_once 'components/db_connect.php';
 require_once 'components/file_upload.php';
-
+// var_dump($_SESSION);
 if (isset($_SESSION['adm'])) {
     $id = $_SESSION['adm'];
     $redirectTo = 'dashboard.php';
-} else {
-    $id = $_SESSION['user'];
-    $redirectTo = 'home.php';
 }
 function cleanInputs($input)
 {
@@ -22,18 +19,22 @@ function cleanInputs($input)
     $data = htmlspecialchars($data);
     return $data;
 }
+$id = $_GET["id"];
+// var_dump($id);
+// var_dump($_POST);
+
 $sql = "SELECT * FROM users where id = {$id}";
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
 // var_dump($row);
 if (isset($_POST['update-profile'])) {
-    $first_name = cleanInputs($_POST["first_name"]);
-    $last_name = cleanInputs($_POST["last_name"]);
-    $email = cleanInputs($_POST["email"]);
-    $password = cleanInputs($_POST["password"]);
+    $first_name = cleanInputs($_POST['first_name']);
+    $last_name = cleanInputs($_POST['last_name']);
+    $email = cleanInputs($_POST['email']);
+    $password = cleanInputs($_POST['password']);
     $address = cleanInputs($_POST["address"]);
     $phone = cleanInputs($_POST["phone_number"]);
-    $picture = fileUpload($_FILES["picture"]);
+    $picture = fileUpload($_FILES['picture']);
     if ($_FILES['picture']['error'] == 4) {
         $updateSql = "UPDATE `users` SET `first_name`='$first_name',`last_name`='$last_name',`address`='$address',`email`='$email', `phone_number`='$phone' WHERE id = {$id}";
     } else {
@@ -56,15 +57,15 @@ ob_end_flush();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome <?= $row['first_name'] ?></title>
+    <title>Welcome <?= $row1['first_name'] ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Doppio+One&family=Indie+Flower&family=Madimi+One&family=Ramaraja&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Coda:wght@400;800&family=Doppio+One&family=Goldman:wght@400;700&family=Indie+Flower&family=Limelight&family=Madimi+One&family=Ramaraja&family=Skranji:wght@400;700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&family=Yusei+Magic&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Coda:wght@400;800&family=Doppio+One&family=Goldman:wght@400;700&family=Indie+Flower&family=Limelight&family=Madimi+One&family=Ramaraja&family=Skranji:wght@400;700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&family=Yusei+Magic&display=swap');
+
         .header1 {
             font-size: 5rem;
             font-family: "Indie Flower", serif;
@@ -220,7 +221,7 @@ ob_end_flush();
     <div class="container-fluid bg-image">
         <div class="row">
             <div class="col col-md-6 mx-auto my-3">
-                <h3 class="text-center header1 fw-bold">Edit profile</h3>
+                <h3 class="text-center header1 fw-bold">Update profile</h3>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="mb-3 mt-3">
                         <label for="first_name" class="text1 form-label">First name</label>

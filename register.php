@@ -79,14 +79,14 @@ if (isset($_POST["register"])) {
     $error = true;
     $passError = "Password must have at least 6 characters!";
   }
-   //check phone number
+  //check phone number
   if (empty($phone)) {
     $error = true;
     $phoneError = "Please enter your phone number!";
   } elseif (!preg_match("/^[0-9]+$/", $phone)) {
     $error = true;
     $phoneError = "Please enter a valid phone number!";
-  }  
+  }
   //if no error, insert users-table
   if (!$error) {
     $password = hash("sha256", $password);
@@ -130,11 +130,12 @@ ob_end_flush();
       font-weight: 400;
       font-style: normal;
       color: #640007;
-      text-shadow: 5px 5px 15px whitesmoke;
+      text-shadow: 6px 6px 0 gray;
       animation: tada;
       animation-duration: 5s;
       --animate-delay: 0.9s;
     }
+
     .text1 {
       font-size: 1.8rem;
       font-family: "Madimi One", sans-serif;
@@ -142,6 +143,7 @@ ob_end_flush();
       font-style: normal;
       color: #21263E;
     }
+
     .text2 {
       font-size: 1.3rem;
       font-family: "Madimi One", sans-serif;
@@ -149,6 +151,7 @@ ob_end_flush();
       font-style: normal;
       color: #2A3058;
     }
+
     .error-text {
       font-size: 1.5rem;
       font-family: "Madimi One", sans-serif;
@@ -156,6 +159,7 @@ ob_end_flush();
       font-style: normal;
       color: darkred;
     }
+
     input[type=text],
     input[type=email],
     input[type=tel],
@@ -176,21 +180,27 @@ ob_end_flush();
       font-weight: 700;
       font-style: normal;
     }
+
     input[type="text"]:focus {
       background-color: #FDD1E8;
     }
+
     input[type="tel"]:focus {
       background-color: #FDD1E8;
     }
+
     input[type="email"]:focus {
       background-color: #FDD1E8;
     }
+
     input[type="password"]:focus {
       background-color: #FDD1E8;
     }
+
     input[type="file"]:focus {
       background-color: #FDD1E8;
     }
+
     .bg-image {
       background-image: url(https://www.teahub.io/photos/full/21-213210_pink-and-gold-wallpaper-yellow-pink-background-hd.jpg);
       background-size: cover;
@@ -238,6 +248,28 @@ ob_end_flush();
 
       100% {
         box-shadow: 5px 5px 20px rgb(93, 52, 168), -5px -5px 20px rgb(93, 52, 168)
+      }
+    }
+
+    /* Mobile phone */
+    @media screen and (max-width: 480px) {
+      .header1 {
+        font-size: 3rem;
+      }
+
+      .text1 {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Tablet */
+    @media screen and (max-width: 1200px) and (min-width: 481px) {
+      .header1 {
+        font-size: 4rem;
+      }
+
+      .text1 {
+        font-size: 1.5rem;
       }
     }
   </style>

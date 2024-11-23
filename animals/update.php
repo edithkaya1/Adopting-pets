@@ -46,13 +46,14 @@ if (isset($_POST["update"])) {
     $size = strtoupper($size);
     $vaccine = strtoupper($vaccine);
     $picture = fileUpload($_FILES["picture"], 'animals');
+
     if ($_FILES["picture"]["error"] == 4) { // user didn't select a picture
         $updsql = "UPDATE animals SET name = '$name', breed = '$breed', gender ='$gender', location = '$location', description = '$description',  size = '$size', age = '$age', vaccine = '$vaccine', status = '$status' WHERE id = {$id}";
     } else {
         if ($row["picture"] != "animal.png") {
             unlink("../pictures/{$row["picture"]}");
         }
-        $updsql = "UPDATE cars SET name = '$name', breed = '$breed', gender ='$gender', location = '$location', description = '$description',  size = '$size', age = '$age', vaccine = '$vaccine', picture = '$picture[0]', status = '$status' WHERE id = {$id}";
+        $updsql = "UPDATE animals SET name = '$name', breed = '$breed', gender ='$gender', location = '$location', description = '$description',  size = '$size', age = '$age', vaccine = '$vaccine', picture = '$picture[0]', status = '$status' WHERE id = {$id}";
     }
     if (mysqli_query($connect, $updsql)) {
         echo "<div class='alert alert-success' role='alert'>
@@ -89,7 +90,7 @@ ob_end_flush();
             font-weight: 400;
             font-style: normal;
             color: #640007;
-            text-shadow: 5px 5px 15px whitesmoke;
+            text-shadow: 6px 6px 0 gray;
             animation: tada;
             animation-duration: 5s;
             --animate-delay: 0.9s;
@@ -111,30 +112,6 @@ ob_end_flush();
 
         .card-image-top {
             width: 100%;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-family: "Unkempt", serif;
-            font-weight: 700;
-            font-style: normal;
-            color: #640007;
-        }
-
-        .card-title:first-child {
-            color: #639744;
-        }
-
-        .card-title:nth-child(2) {
-            color: #fe47af;
-        }
-
-        .card-title:nth-child(3) {
-            color: #c70054;
-        }
-
-        .card-title:nth-child(4) {
-            color: #6B9A6E;
         }
 
         .text1 {
@@ -225,6 +202,71 @@ ob_end_flush();
             height: auto;
             margin: 0;
         }
+
+        .nav-link {
+            font-size: 1.5rem;
+            font-family: "Carlito", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .nav-link:hover {
+            background-color: #b3c6ff;
+            border-radius: 15%;
+            transform: scale(1.1);
+        }
+
+        /* Mobile phone */
+        @media screen and (max-width: 480px) {
+            .header1 {
+                font-size: 4rem;
+            }
+
+            .card-header {
+                font-size: 3rem;
+            }
+
+            .nav-link:hover {
+                border-radius: 25%;
+                width: 10rem;
+                height: auto;
+                transform: scale(1.0);
+                text-align: center;
+            }
+
+            .footer h2,
+            h5 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablet */
+        @media screen and (max-width: 1200px) and (min-width: 481px) {
+            .header1 {
+                font-size: 4.5rem;
+            }
+
+            .card-header {
+                font-size: 3.2rem;
+            }
+
+            .nav-link:hover {
+                border-radius: 25%;
+                width: 10rem;
+                height: auto;
+                transform: scale(1.0);
+                text-align: center;
+            }
+
+            .footer h2,
+            h5 {
+                font-size: 1.2rem;
+            }
+
+            .footer-links {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 
@@ -242,7 +284,7 @@ ob_end_flush();
             </button>
             <div class="collapse navbar-collapse p-3" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" href="index.php">List of animals</a>
+                    <a class="nav-link active" href="index.php">List of pets</a>
                 </div>
             </div>
         </div>
@@ -250,7 +292,7 @@ ob_end_flush();
     <div class="container-fluid bg-image">
         <div class="row">
             <div class="col col-md-6 mx-auto my-3">
-                <h3 class="text-center header1 fw-bold">Update an animal</h3>
+                <h3 class="text-center header1 fw-bold">Update a pet</h3>
                 <div class="row row-cols-1">
                     <?= $cards ?>
                 </div>
@@ -316,9 +358,9 @@ ob_end_flush();
                         </select>
                     </div>
                     <div class="text-center">
-                        <button name="update" type="submit" class="btn btn-lg btn-outline-secondary mx-5">Update
-                            animal</button>
-                        <a href="index.php" class="btn btn-lg btn-outline-dark mx-5">Back to home</a>
+                        <button name="update" type="submit" class="btn btn-lg btn-outline-secondary m-4">Update
+                            pet</button>
+                        <a href="index.php" class="btn btn-lg btn-outline-dark m-4">Back to home</a>
                     </div>
                 </form>
             </div>
@@ -328,18 +370,18 @@ ob_end_flush();
     <footer class="footer p-2 bg-dark-subtle text-secondary-emphasis">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h2><i class="fa-solid fa-paw"></i></i>Animal home Breitenfurt</h2>
+                <div class="col-md-5 col-sm-2">
+                    <h2><i class="fa-solid fa-paw"></i></i>Pet adoption Breitenfurt</h2>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5 col-sm-2">
                     <h5>Contact us</h5>
                     <ul class="list-unstyled">
-                        <li>Email: animal.home.Breitenfurt@gmail.com</li>
+                        <li>Email: petadoption@gmail.com</li>
                         <li>Phone: +43 616/1240356</li>
                         <li>Address: Hauptstrasse 777, 2384 Breitenfurt, Austria</li>
                     </ul>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-5">
                     <h5>Follow Us</h5>
                     <ul class="list-inline footer-links">
                         <li class="list-inline-item">
@@ -367,8 +409,8 @@ ob_end_flush();
             </div>
             <hr />
             <div id="foot" class="row">
-                <div class="col-md-4">
-                    <p>&copy; Animal home Breitenfurt 2024</p>
+                <div class="col-md-5">
+                    <p>&copy; Pet adoption Breitenfurt 2024</p>
                 </div>
                 <div class="col-md-6">
                     <p>All rights reserved</p>

@@ -29,7 +29,7 @@ if (isset($_POST["create"])) {
   $vaccine = strtoupper($vaccine);
   $size = strtoupper($size);
   $picture = fileUpload($_FILES["picture"], 'animals');
-  
+
   $sql = "INSERT INTO `animals`(`name`, `breed`, `gender`, `location`, `description`, `size`, `age`, `vaccine`, `picture`, `status`) VALUES 
   ('$name','$breed','$gender','$location','$description','$size','$age','$vaccine','$picture[0]', '$status')";
   if (mysqli_query($connect, $sql)) {
@@ -69,18 +69,21 @@ ob_end_flush();
       font-weight: 400;
       font-style: normal;
       color: #640007;
-      text-shadow: 5px 5px 15px whitesmoke;
+      text-shadow: 6px 6px 0 gray;
       animation: tada;
       animation-duration: 5s;
       --animate-delay: 0.9s;
     }
+
     .image {
       width: 80px;
       height: auto;
     }
+
     .card-header {
       font-size: 2.5rem;
     }
+
     .text1 {
       font-size: 1.8rem;
       font-family: "Madimi One", sans-serif;
@@ -88,6 +91,7 @@ ob_end_flush();
       font-style: normal;
       color: #C91959;
     }
+
     input[type=text],
     input[type=number],
     input[type=checkbox],
@@ -107,12 +111,15 @@ ob_end_flush();
       font-weight: 700;
       font-style: normal;
     }
+
     input[type="text"]:focus {
       background-color: #C0EDE4;
     }
+
     input[type="number"]:focus {
       background-color: #C0EDE4;
     }
+
     .box {
       width: 100%;
       font-size: 1.5rem;
@@ -130,9 +137,11 @@ ob_end_flush();
       font-style: normal;
       color: #52A051;
     }
+
     .box:focus {
       background-color: #C0EDE4;
     }
+
     .bg-image {
       background-image: url(https://static.vecteezy.com/system/resources/previews/011/410/588/original/abstract-watercolor-background-watercolor-texture-for-design-vector.jpg);
       background-size: cover;
@@ -140,6 +149,63 @@ ob_end_flush();
       background-repeat: no-repeat;
       height: auto;
       margin: 0;
+    }
+
+    .nav-link {
+      font-size: 1.5rem;
+      font-family: "Carlito", sans-serif;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    .nav-link:hover {
+      background-color: #b3c6ff;
+      border-radius: 15%;
+      transform: scale(1.1);
+    }
+
+    /* Mobile phone */
+    @media screen and (max-width: 480px) {
+      .header1 {
+        font-size: 3.5rem;
+      }
+
+      .nav-link:hover {
+        border-radius: 25%;
+        width: 10rem;
+        height: auto;
+        transform: scale(1.0);
+        text-align: center;
+      }
+
+      .footer h2,
+      h5 {
+        font-size: 1rem;
+      }
+    }
+
+    /* Tablet */
+    @media screen and (max-width: 1200px) and (min-width: 481px) {
+      .header1 {
+        font-size: 4rem;
+      }
+
+      .nav-link:hover {
+        border-radius: 25%;
+        width: 10rem;
+        height: auto;
+        transform: scale(1.0);
+        text-align: center;
+      }
+
+      .footer h2,
+      h5 {
+        font-size: 1.2rem;
+      }
+
+      .footer-links {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -159,7 +225,7 @@ ob_end_flush();
       </button>
       <div class="collapse navbar-collapse p-3" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" href="index.php">List of animals</a>
+          <a class="nav-link active" href="index.php">List of pets</a>
         </div>
       </div>
     </div>
@@ -168,7 +234,7 @@ ob_end_flush();
   <div class="container-fluid bg-image">
     <div class="row">
       <div class="col col-md-6 mx-auto my-3">
-        <h3 class="text-center header1 fw-bold">Create a new animal</h3>
+        <h3 class="text-center header1 fw-bold">Create a new pet</h3>
         <form method="POST" enctype="multipart/form-data">
           <div class="mb-3 mt-3">
             <label for="brand" class="text1 form-label">Name</label>
@@ -231,8 +297,8 @@ ob_end_flush();
             </select>
           </div>
           <div class="text-center">
-            <button name="create" type="submit" class="btn btn-lg btn-outline-secondary mx-5">Save animal</button>
-            <a href="index.php" class="btn btn-lg btn-outline-dark mx-5">Back to home</a>
+            <button name="create" type="submit" class="btn btn-lg btn-outline-secondary m-4">Save pet</button>
+            <a href="index.php" class="btn btn-lg btn-outline-dark m-4">Back to home</a>
           </div>
         </form>
       </div>
@@ -242,18 +308,18 @@ ob_end_flush();
   <footer class="footer p-2 bg-dark-subtle text-secondary-emphasis">
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
-          <h2><i class="fa-solid fa-paw"></i></i>Animal home Breitenfurt</h2>
+        <div class="col-md-5 col-sm-2">
+          <h2><i class="fa-solid fa-paw"></i></i>Pet adoption Breitenfurt</h2>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5 col-sm-2">
           <h5>Contact us</h5>
           <ul class="list-unstyled">
-            <li>Email: animal.home.Breitenfurt@gmail.com</li>
+            <li>Email: petadoption@gmail.com</li>
             <li>Phone: +43 616/1240356</li>
             <li>Address: Hauptstrasse 777, 2384 Breitenfurt, Austria</li>
           </ul>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-5">
           <h5>Follow Us</h5>
           <ul class="list-inline footer-links">
             <li class="list-inline-item">
@@ -281,8 +347,8 @@ ob_end_flush();
       </div>
       <hr />
       <div id="foot" class="row">
-        <div class="col-md-4">
-          <p>&copy; Animal home Breitenfurt 2024</p>
+        <div class="col-md-5">
+          <p>&copy; Pet adoption Breitenfurt 2024</p>
         </div>
         <div class="col-md-6">
           <p>All rights reserved</p>
@@ -290,7 +356,6 @@ ob_end_flush();
       </div>
     </div>
   </footer>
-
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

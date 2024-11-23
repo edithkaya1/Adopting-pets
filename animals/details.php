@@ -40,8 +40,8 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                 <p class='card-text1 text-center'>{$row["description"]}</p>
                <div style='text-align: center'>
                   <a href='index.php' class='btn btn-outline-secondary btn-lg text-center mx-4 my-3'>Home</a> 
-                   <a href='update.php?id=$row[id]' class='btn btn-outline-warning btn-lg text-center mx-4 my-3'>Edit animal</a> 
-                   <a href='delete.php?id=$row[id]' class='btn btn-outline-danger btn-lg text-center mx-4 my-3'>Delete animal</a>
+                   <a href='update.php?id=$row[id]' class='btn btn-outline-warning btn-lg text-center mx-4 my-3'>Edit pet</a> 
+                   <a href='delete.php?id=$row[id]' class='btn btn-outline-danger btn-lg text-center mx-4 my-3'>Delete pet</a>
              </div>
              </div>
             </div>         
@@ -81,7 +81,7 @@ ob_end_flush();
             font-weight: 400;
             font-style: normal;
             color: #640007;
-            text-shadow: 5px 5px 15px whitesmoke;
+            text-shadow: 6px 6px 0 gray;
             animation: tada;
             animation-duration: 5s;
             --animate-delay: 0.9s;
@@ -168,13 +168,110 @@ ob_end_flush();
             height: auto;
             margin: 0;
         }
+
+        .nav-link {
+            font-size: 1.5rem;
+            font-family: "Carlito", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .nav-link:hover {
+            background-color: #b3c6ff;
+            border-radius: 15%;
+            transform: scale(1.1);
+        }
+
+        /* Mobile phone */
+        @media screen and (max-width: 480px) {
+            .header1 {
+                font-size: 3.5rem;
+            }
+
+            .card-header {
+                font-size: 3.2rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .card-text {
+                font-size: 1.1rem;
+            }
+
+            .card-text1 {
+                font-size: 0.9rem;
+            }
+
+            .error-text {
+                font-size: 1rem;
+            }
+
+            .nav-link:hover {
+                border-radius: 25%;
+                width: 10rem;
+                height: auto;
+                transform: scale(1.0);
+                text-align: center;
+            }
+
+            .footer h2,
+            h5 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablet */
+        @media screen and (max-width: 1200px) and (min-width: 481px) {
+            .header1 {
+                font-size: 4.5rem;
+            }
+
+            .card-header {
+                font-size: 3.5rem;
+            }
+
+            .card-title {
+                font-size: 2.1rem;
+            }
+
+            .card-text {
+                font-size: 1.3rem;
+            }
+
+            .card-text1 {
+                font-size: 1.1rem;
+            }
+
+            .error-text {
+                font-size: 1.1rem;
+            }
+
+            .nav-link:hover {
+                border-radius: 25%;
+                width: 10rem;
+                height: auto;
+                transform: scale(1.0);
+                text-align: center;
+            }
+
+            .footer h2,
+            h5 {
+                font-size: 1.2rem;
+            }
+
+            .footer-links {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar sticky-top bg-dark navbar-expand-lg bg-body-secondary fs-5">
         <div class="container-fluid">
-        <div class="w-1">
+            <div class="w-1">
                 <img class="image"
                     src="../pictures/<?= $row1['picture'] ?>"
                     alt="Logo" />
@@ -185,14 +282,14 @@ ob_end_flush();
             </button>
             <div class="collapse navbar-collapse p-3" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" href="index.php">List of animals</a>
+                    <a class="nav-link active" href="index.php">List of pets</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="container-fluid bg-image">
-        <h1 class="header1 text-center fw-bold mb-3">Animal details</h1>
+        <h1 class="header1 text-center fw-bold mb-3">Pet details</h1>
         <div class="row">
             <div class="col col-md-6 mx-auto">
                 <?= $layout ?>
@@ -203,18 +300,18 @@ ob_end_flush();
     <footer class="footer p-2 bg-dark-subtle text-secondary-emphasis">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h2><i class="fa-solid fa-paw"></i></i>Animal home Breitenfurt</h2>
+                <div class="col-md-5 col-sm-2">
+                    <h2><i class="fa-solid fa-paw"></i></i>Pet adoption Breitenfurt</h2>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5 col-sm-2">
                     <h5>Contact us</h5>
                     <ul class="list-unstyled">
-                        <li>Email: animal.home.Breitenfurt@gmail.com</li>
+                        <li>Email: petadoption@gmail.com</li>
                         <li>Phone: +43 616/1240356</li>
                         <li>Address: Hauptstrasse 777, 2384 Breitenfurt, Austria</li>
                     </ul>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-5">
                     <h5>Follow Us</h5>
                     <ul class="list-inline footer-links">
                         <li class="list-inline-item">
@@ -242,8 +339,8 @@ ob_end_flush();
             </div>
             <hr />
             <div id="foot" class="row">
-                <div class="col-md-4">
-                    <p>&copy; Animal home Breitenfurt 2024</p>
+                <div class="col-md-5">
+                    <p>&copy; Pet adoption Breitenfurt 2024</p>
                 </div>
                 <div class="col-md-6">
                     <p>All rights reserved</p>

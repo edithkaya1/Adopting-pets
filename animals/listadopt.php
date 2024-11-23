@@ -1,57 +1,53 @@
 <?php
 ob_start();
 session_start();
-if (isset($_SESSION["adm"])) {
-    header("Location: dashboard.php");
+if (isset($_SESSION["user"])) {
+    header("Location: ../home.php");
 }
 if (!isset($_SESSION["adm"]) && !isset($_SESSION["user"])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
-require_once "components/db_connect.php";
-$sql = "SELECT * FROM users WHERE id = {$_SESSION["user"]}";
+require_once "../components/db_connect.php";
+
+$sql = "SELECT * FROM users WHERE id = {$_SESSION["adm"]}";
 // echo $sql;
 $result = mysqli_query($connect, $sql);
 $row1 = mysqli_fetch_assoc($result);
 // print_r($row1);
 
-if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
-    $id = $_GET["id"];
-    $sql = "SELECT * FROM animals where id = {$id}";
-    $result = mysqli_query($connect, $sql);
-    $layout = "";
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            // print_r($row);
-            $layout .= "<div class='container'>
-              <div class='card text-center my-3'>
-             <div class='card-header'>
-                {$row['name']}
-             </div>
-              <div class='text-center'>
-                    <img src='../pictures/{$row["picture"]}' class='card-img-top' alt='{$row["picture"]}'>
-              </div>
-              <div class='card-body bg-success-subtle'>
-               <h5 class='card-title text-center fw-bold'>Breed: {$row["breed"]}</h5>
-                <h5 class='card-title text-center fw-bold'>Gender: {$row["gender"]}</h5>
-                 <h5 class='card-title text-center fw-bold'>Age: {$row["age"]}</h5>
-                <h6 class='card-text text-center'>Location: {$row["location"]}</h6>
-                <h6 class='card-text text-center'>Size: {$row["size"]}</h6>
-                <h6 class='card-text text-center'>Vaccinated: {$row["vaccine"]}</h6>
-                <p class='card-text1 text-center'>{$row["description"]}</p>
-               <div style='text-align: center'>
-                  <a href='home.php' class='btn btn-outline-secondary btn-lg text-center mx-4 my-3'>Home</a> 
-                  <a href='adopting.php?id=$row[id]' class='btn btn-outline-warning btn-lg text-center mx-4 my-3'>Take me home</a> 
-             </div>
-             </div>
-            </div>         
-          </div>";
-        }
-    } else {
-        $layout = "<h3>Animal not found</h3>";
+$sql = "SELECT * FROM pet_adoption INNER JOIN users ON pet_adoption.fk_user_id = users.id INNER JOIN animals ON pet_adoption.fk_animal_id = animals.id ORDER BY pet_adoption.adopt_date";
+// print_r($sql);
+
+$result = mysqli_query($connect, $sql);
+$cards = "";
+
+if (mysqli_num_rows($result) > 0) {
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    foreach ($rows as $row) {
+        // print_r($row);
+        $adate = date_format(new DateTime($row['adopt_date']), "d.m.Y");
+
+        $cards .= "<div>
+               <div class='card mx-auto my-3'>
+                   <div class='card-header text-center style='width: 18rem;'>
+                     {$row['breed']} {$row['name']}
+                   </div>
+                   <div class='text-center'>
+                      <img src='../pictures/{$row["picture"]}' class='card-image-top img-fluid' alt='{$row["picture"]}'>
+                   </div>
+                    <h5 class='card-title fw-bold text-center'>{$row['first_name']} {$row['last_name']}</h5>
+                    <h5 class='card-title fw-bold text-center'>{$row['email']}</h5>
+                   <div class='card-body'>
+                        <p class='card-text fw-bold text-center'>Adoption date: {$adate}</p>
+                   </div>
+           </div>
+         </div>";
     }
 } else {
-    $layout = "<h3>No valid animal selected</h3>";
-};
+    $cards = "<h3>No results found</h3>";
+}
+
 mysqli_close($connect);
 ob_end_flush();
 ?>
@@ -70,9 +66,7 @@ ob_end_flush();
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Doppio+One&family=Indie+Flower&family=Madimi+One&family=Ramaraja&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Coda:wght@400;800&family=Doppio+One&family=Indie+Flower&family=Madimi+One&family=Ramaraja&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Coda:wght@400;800&family=Doppio+One&family=Goldman:wght@400;700&family=Indie+Flower&family=Madimi+One&family=Ramaraja&family=Skranji:wght@400;700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&family=Yusei+Magic&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Coda:wght@400;800&family=Coustard:wght@400;900&family=Doppio+One&family=Goldman:wght@400;700&family=Indie+Flower&family=Limelight&family=Madimi+One&family=Ramaraja&family=Reggae+One&family=Skranji:wght@400;700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&family=Yusei+Magic&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Coda:wght@400;800&family=Doppio+One&family=Goldman:wght@400;700&family=Indie+Flower&family=Madimi+One&family=Ramaraja&family=Skranji:wght@400;700&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&family=Unkempt:wght@400;700&display=swap');
 
         .header1 {
             font-size: 5rem;
@@ -89,19 +83,6 @@ ob_end_flush();
         .image {
             width: 80px;
             height: auto;
-        }
-
-        .nav-link {
-            font-size: 1.5rem;
-            font-family: "Carlito", sans-serif;
-            font-weight: 700;
-            font-style: italic;
-        }
-
-        .nav-link:hover {
-            background-color: #b3c6ff;
-            border-radius: 15%;
-            transform: scale(1.1);
         }
 
         .card {
@@ -122,54 +103,44 @@ ob_end_flush();
         }
 
         .card-image-top {
-            width: 44rem;
+            width: 100%;
+            height: 400px;
         }
 
         .card-title {
-            font-size: 2.1rem;
+            font-size: 1.5rem;
             font-family: "Unkempt", serif;
             font-weight: 700;
             font-style: normal;
-            color: #C91959;
+            color: #640007;
         }
 
         .card-title:first-child {
-            color: #639744;
-        }
-
-        .card-title:nth-child(2) {
-            color: #fe47af;
+            color: #8ab446;
         }
 
         .card-title:nth-child(3) {
-            color: #c70054;
+            color: #8ab446;
+        }
+
+        .card-title:nth-child(4) {
+            color: #880015;
         }
 
         .card-text {
-            font-size: 1.3rem;
-            font-family: "Reggae One", system-ui;
-            font-weight: 400;
+            font-size: 1.2rem;
+            font-family: "Unkempt", serif;
+            font-weight: 700;
             font-style: normal;
-            letter-spacing: 0.5;
-            color: #3b7430;
+            color: #2d6b22;
         }
 
         .card-text1 {
-            font-size: 1.1rem;
-            font-family: "Yusei Magic", serif;
-            font-weight: 400;
-            font-style: normal;
-            letter-spacing: 0.5;
-            color: #3f3aaa;
-        }
-
-        .error-text {
-            font-size: 1.1rem;
-            font-family: "Skranji", serif;
+            font-size: 1.2rem;
+            font-family: "Unkempt", serif;
             font-weight: 700;
             font-style: normal;
-            letter-spacing: 0.5;
-            color: #3f3aaa;
+            color: #e93667;
         }
 
         .bg-image {
@@ -181,30 +152,35 @@ ob_end_flush();
             margin: 0;
         }
 
+        .nav-link {
+            font-size: 1.5rem;
+            font-family: "Carlito", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .nav-link:hover {
+            background-color: #b3c6ff;
+            border-radius: 15%;
+            transform: scale(1.1);
+        }
+
         /* Mobile phone */
         @media screen and (max-width: 480px) {
             .header1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
 
             .card-header {
-                font-size: 3.2rem;
+                font-size: 2rem;
             }
 
             .card-title {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
 
             .card-text {
-                font-size: 1.1rem;
-            }
-
-            .card-text1 {
-                font-size: 0.9rem;
-            }
-
-            .error-text {
-                font-size: 1rem;
+                font-size: 1.3rem;
             }
 
             .nav-link:hover {
@@ -228,23 +204,7 @@ ob_end_flush();
             }
 
             .card-header {
-                font-size: 3.5rem;
-            }
-
-            .card-title {
-                font-size: 2.1rem;
-            }
-
-            .card-text {
-                font-size: 1.3rem;
-            }
-
-            .card-text1 {
-                font-size: 1.1rem;
-            }
-
-            .error-text {
-                font-size: 1.1rem;
+                font-size: 2.2rem;
             }
 
             .nav-link:hover {
@@ -257,7 +217,7 @@ ob_end_flush();
 
             .footer h2,
             h5 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .footer-links {
@@ -272,7 +232,7 @@ ob_end_flush();
         <div class="container-fluid">
             <div class="w-1">
                 <img class="image"
-                    src="pictures/<?= $row1['picture'] ?>"
+                    src="../pictures/<?= $row1['picture'] ?>"
                     alt="Logo" />
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -281,36 +241,35 @@ ob_end_flush();
             </button>
             <div class="collapse navbar-collapse p-3" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" href="home.php">List of pets</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">List of pets</a>
+                    <a class="nav-link" href="../dashboard.php">Dashboard</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="container-fluid bg-image">
-        <h1 class="header1 text-center fw-bold mb-3">Pet details</h1>
-        <div class="row">
-            <div class="col col-md-6 mx-auto">
-                <?= $layout ?>
-            </div>
+        <h1 class="header1 text-center fw-bold">List of pet adoptions</h1>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1">
+            <?= $cards ?>
         </div>
     </div>
 
     <footer class="footer p-2 bg-dark-subtle text-secondary-emphasis">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 col-sm-2">
+                <div class="col-md-4">
                     <h2><i class="fa-solid fa-paw"></i></i>Pet adoption Breitenfurt</h2>
                 </div>
-                <div class="col-md-5 col-sm-2">
+                <div class="col-md-6">
                     <h5>Contact us</h5>
                     <ul class="list-unstyled">
-                        <li>Email: petadoption@gmail.com</li>
+                        <li>Email: pet.adoption.Breitenfurt@gmail.com</li>
                         <li>Phone: +43 616/1240356</li>
                         <li>Address: Hauptstrasse 777, 2384 Breitenfurt, Austria</li>
                     </ul>
                 </div>
-                <div class="col-md-2 col-sm-5">
+                <div class="col-md-2">
                     <h5>Follow Us</h5>
                     <ul class="list-inline footer-links">
                         <li class="list-inline-item">
@@ -338,7 +297,7 @@ ob_end_flush();
             </div>
             <hr />
             <div id="foot" class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <p>&copy; Pet adoption Breitenfurt 2024</p>
                 </div>
                 <div class="col-md-6">

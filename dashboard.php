@@ -64,7 +64,7 @@ ob_end_flush();
       font-weight: 400;
       font-style: normal;
       color: #640007;
-      text-shadow: 5px 5px 15px whitesmoke;
+      text-shadow: 6px 6px 0 gray;
       animation: tada;
       animation-duration: 5s;
       --animate-delay: 0.9s;
@@ -109,6 +109,19 @@ ob_end_flush();
       margin: 0;
     }
 
+    .nav-link {
+      font-size: 1.5rem;
+      font-family: "Carlito", sans-serif;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    .nav-link:hover {
+      background-color: #b3c6ff;
+      border-radius: 15%;
+      transform: scale(1.1);
+    }
+
     #neonShadow {
       height: 30px;
       width: 100px;
@@ -149,6 +162,50 @@ ob_end_flush();
         box-shadow: 5px 5px 20px rgb(93, 52, 168), -5px -5px 20px rgb(93, 52, 168)
       }
     }
+
+    /* Mobile phone */
+    @media screen and (max-width: 480px) {
+      .header1 {
+        font-size: 3rem;
+      }
+
+      .nav-link:hover {
+        border-radius: 25%;
+        width: 10rem;
+        height: auto;
+        transform: scale(1.0);
+        text-align: center;
+      }
+
+      .footer h2,
+      h5 {
+        font-size: 1rem;
+      }
+    }
+
+    /* Tablet */
+    @media screen and (max-width: 1200px) and (min-width: 481px) {
+      .header1 {
+        font-size: 4rem;
+      }
+
+      .nav-link:hover {
+        border-radius: 25%;
+        width: 10rem;
+        height: auto;
+        transform: scale(1.0);
+        text-align: center;
+      }
+
+      .footer h2,
+      h5 {
+        font-size: 1.2rem;
+      }
+
+      .footer-links {
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 
@@ -167,8 +224,8 @@ ob_end_flush();
       <div class="collapse navbar-collapse p-3" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="dashboard.php">Dashboard</a>
-          <a class="nav-link" href="animals/index.php">List of animals</a>
-          <a class="nav-link" href="animals/listadopt.php">Animal adoptions</a>
+          <a class="nav-link" href="animals/index.php">List of pets</a>
+          <a class="nav-link" href="animals/listadopt.php">Pet adoptions</a>
           <a class="nav-link" href="logout.php?logout">Logout</a>
         </div>
       </div>
@@ -177,7 +234,7 @@ ob_end_flush();
 
   <div class="container-fluid bg-image">
     <br><br>
-    <div class="row row-cols-3">
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xs-1">
       <?= $layout ?>
     </div>
   </div>
@@ -185,18 +242,18 @@ ob_end_flush();
   <footer class="footer p-2 bg-dark-subtle text-secondary-emphasis">
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
-          <h2><i class="fa-solid fa-paw"></i>Animal home Breitenfurt</h2>
+        <div class="col-md-5 col-sm-2">
+          <h2><i class="fa-solid fa-paw"></i></i>Pet adoption Breitenfurt</h2>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5 col-sm-2">
           <h5>Contact us</h5>
           <ul class="list-unstyled">
-            <li>Email: animal.home.Breitenfurt@gmail.com</li>
+            <li>Email: petadoption@gmail.com</li>
             <li>Phone: +43 616/1240356</li>
             <li>Address: Hauptstrasse 777, 2384 Breitenfurt, Austria</li>
           </ul>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-5">
           <h5>Follow Us</h5>
           <ul class="list-inline footer-links">
             <li class="list-inline-item">
@@ -224,8 +281,8 @@ ob_end_flush();
       </div>
       <hr />
       <div id="foot" class="row">
-        <div class="col-md-4">
-          <p>&copy; Animal home Breitenfurt 2024</p>
+        <div class="col-md-5">
+          <p>&copy; Pet adoption Breitenfurt 2024</p>
         </div>
         <div class="col-md-6">
           <p>All rights reserved</p>
